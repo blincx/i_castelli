@@ -13,6 +13,12 @@ defmodule Tty6EQUJ5.Mixfile do
      mod: {Tty6EQUJ5, []}]
   end
 
+  def deps do
+    [
+      {:ex_ncurses, "~> 0.3"}
+    ]
+  end
+
   defp escript do
     [main_module: Tty6EQUJ5.CLI,
      emu_args: "-noinput -elixir ansi_enabled true"]

@@ -2,6 +2,7 @@ defmodule Tty6EQUJ5.IO do
   use GenEvent
 
   alias Tty6EQUJ5.Game
+  alias IO.ANSI
 
   def init({%Game{} = game, _args}) do
     print_game(game)
@@ -24,8 +25,15 @@ defmodule Tty6EQUJ5.IO do
   defp translate("\e[D"), do: :left
   defp translate(_other), do: nil
 
+  def format(%Tty6EQUJ5.Game{} = game) do
+    [ANSI.home, ANSI.clear,
+     format_score(game),
+     format_grid(game),
+     ANSI.reset]
+  end
+
   defp print_game(game) do
-    Game.Formatter.format(game)
+    format(game)
     |> IO.write
   end
 end
